@@ -12,7 +12,7 @@ const password = process.env.PASSWORD ? process.env.PASSWORD : "password123";
 
 async function performPlaywrightMessage(link) {
   console.log(`💃 ${link} 🤝`);
-  const browser = await chromium.launch({ headless: false });
+  const browser = await chromium.launch();
   const page = await browser.newPage();
 
   await page.goto(link);
