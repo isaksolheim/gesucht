@@ -3,15 +3,24 @@ const path = require("path");
 const process = require("process");
 const { google } = require("googleapis");
 const { chromium } = require("playwright");
-const TOKEN_PATH = path.join(process.cwd(), "token.json");
+const { Configuration, OpenAIApi } = require("openai");
+const starterText = require("./prompt");
+
 require("dotenv").config();
 
+const TOKEN_PATH = path.join(process.cwd(), "token.json");
 const listingId = process.env.LISTING_ID ? process.env.LISTING_ID : "0";
 const email = process.env.EMAIL ? process.env.EMAIL : "example@mail.com";
 const password = process.env.PASSWORD ? process.env.PASSWORD : "password123";
 
+const configuration = new Configuration({
+  apiKey: process.env.API_KEY,
+});
+
+const openai = new OpenAIApi(configuration);
+
 async function performPlaywrightMessage(link) {
-  console.log(`💃 ${link} 🤝`);
+  console.log(`💃 Visiting ${link}`);
   const browser = await chromium.launch();
   const page = await browser.newPage();
 
@@ -20,6 +29,16 @@ async function performPlaywrightMessage(link) {
   if (await page.isVisible("text='Accept all'")) {
     await page.getByRole("button", { name: "Accept all" }).click();
   }
+
+  const listingText = await page
+    .locator("div#ad_description_text")
+    .allTextContents();
+
+  const listingString = JSON.stringify(listingText);
+
+  console.log("🎇Generating ChatGPT reponse...");
+  const gptResponse = await GPT35Turbo(listingString);
+  console.log("🎇Done!");
 
   await page
     .locator("#rhs_column")
@@ -38,6 +57,7 @@ async function performPlaywrightMessage(link) {
   await page
     .getByRole("button", { name: "Yes, I have read the Security Advice" })
     .click();
+
   await page
     .getByPlaceholder(
       "Write your message with a personal touch and detailed information and refer to the Ad description. You can mention your availability to visit the flat and additional contact information such as your mobile phone number, where appropriate."
@@ -47,7 +67,7 @@ async function performPlaywrightMessage(link) {
     .getByPlaceholder(
       "Write your message with a personal touch and detailed information and refer to the Ad description. You can mention your availability to visit the flat and additional contact information such as your mobile phone number, where appropriate."
     )
-    .fill("Hello :) I am interested!");
+    .fill(gptResponse);
   await page.getByRole("button", { name: "󰏢 Attachment" }).click();
   await page.locator("#file_storage_wrapper").getByRole("img").first().click();
   await page.locator("#file_storage_wrapper").getByRole("img").nth(2).click();
@@ -57,14 +77,7 @@ async function performPlaywrightMessage(link) {
 
   await browser.close();
 
-  console.log(`________________________________________
-< mooooooooooooooooooooooooooooooooooooo🔥 >
- ----------------------------------------
-        \\   ^__^
-         \\  (oo)\\_______
-            (__)\\       )\\/\\
-                ||----w |
-                ||     ||`);
+  console.log("🍏 Message successfully sent!");
 }
 
 async function loadSavedCredentialsIfExist() {
@@ -136,7 +149,7 @@ async function getMessage(auth, messageId) {
 async function getHistory(auth, historyId) {
   const gmail = google.gmail({ version: "v1", auth });
   const res = await gmail.users.history.list({
-    userId: "wgbot3@gmail.com",
+    userId: "me",
     startHistoryId: historyId,
   });
   parseHistoryResponse(res.data);
@@ -147,5 +160,25 @@ async function tryToSendMessage() {
   let historyId = 1;
   await getHistory(cred, historyId);
 }
+
+let GPT35Turbo = async (listingText) => {
+  const prompt = `
+    Can you add 1-3 sentences to the following text. The new sentences should explain why I would fit this flatshare. Add some emojies as well: "${starterText}", making it fit the following listing: "${listingText}";
+  `;
+
+  const turboMessage = [
+    { role: "system", content: `I am applying to a flatshare listing.` },
+    { role: "user", content: prompt },
+  ];
+
+  const response = await openai.createChatCompletion({
+    model: "gpt-3.5-turbo",
+    messages: turboMessage,
+    max_tokens: 1000,
+    temperature: 0.8,
+  });
+
+  return response.data.choices[0].message.content;
+};
 
 module.exports = { tryToSendMessage };

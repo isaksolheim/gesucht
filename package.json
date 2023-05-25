@@ -11,9 +11,11 @@
   "license": "MIT",
   "dependencies": {
     "@google-cloud/local-auth": "^2.1.1",
+    "axios": "^1.4.0",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
     "googleapis": "^118.0.0",
+    "openai": "^3.2.1",
     "playwright": "^1.34.2"
   }
 }

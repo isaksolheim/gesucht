@@ -37,3 +37,8 @@ test-results
 .cache/
 .eslintcache
 email.html
+
+token.json
+credentials.json
+
+prompt.js
