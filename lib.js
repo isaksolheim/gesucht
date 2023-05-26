@@ -40,6 +40,9 @@ async function performPlaywrightMessage(link) {
   const gptResponse = await GPT35Turbo(listingString);
   console.log("🎇Done!");
 
+  console.log(gptResponse);
+
+  /*
   await page
     .locator("#rhs_column")
     .getByRole("link", { name: "Send Message" })
@@ -75,6 +78,7 @@ async function performPlaywrightMessage(link) {
   await page.getByRole("button", { name: "Done" }).click();
   await page.getByRole("button", { name: "Send message" }).click();
 
+  */
   await browser.close();
 
   console.log("🍏 Message successfully sent!");
@@ -163,7 +167,7 @@ async function tryToSendMessage() {
 
 let GPT35Turbo = async (listingText) => {
   const prompt = `
-    Can you add 1-3 sentences to the following text. The new sentences should explain why I would fit this flatshare. Add some emojies as well: "${starterText}", making it fit the following listing: "${listingText}";
+    Add 1-3 sentences to the following text: "${starterText}". The new sentences should explain why I would fit the flatshare, listed with the following text: "${listingText}". Add some emojies as well!;
   `;
 
   const turboMessage = [
