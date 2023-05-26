@@ -40,9 +40,6 @@ async function performPlaywrightMessage(link) {
   const gptResponse = await GPT35Turbo(listingString);
   console.log("🎇Done!");
 
-  console.log(gptResponse);
-
-  /*
   await page
     .locator("#rhs_column")
     .getByRole("link", { name: "Send Message" })
@@ -78,7 +75,6 @@ async function performPlaywrightMessage(link) {
   await page.getByRole("button", { name: "Done" }).click();
   await page.getByRole("button", { name: "Send message" }).click();
 
-  */
   await browser.close();
 
   console.log("🍏 Message successfully sent!");
