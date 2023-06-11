@@ -12,6 +12,9 @@ const TOKEN_PATH = path.join(process.cwd(), "token.json");
 const listingId = process.env.LISTING_ID ? process.env.LISTING_ID : "0";
 const email = process.env.EMAIL ? process.env.EMAIL : "example@mail.com";
 const password = process.env.PASSWORD ? process.env.PASSWORD : "password123";
+const topicName = process.env.TOPIC_NAME
+  ? process.env.TOPIC_NAME
+  : "topic_name";
 
 const configuration = new Configuration({
   apiKey: process.env.API_KEY,
@@ -21,7 +24,7 @@ const openai = new OpenAIApi(configuration);
 
 async function performPlaywrightMessage(link) {
   console.log(`💃 Visiting ${link}`);
-  const browser = await chromium.launch();
+  const browser = await chromium.launch({ headless: true });
   const page = await browser.newPage();
 
   await page.goto(link);
@@ -35,10 +38,6 @@ async function performPlaywrightMessage(link) {
     .allTextContents();
 
   const listingString = JSON.stringify(listingText);
-
-  console.log("🎇Generating ChatGPT reponse...");
-  const gptResponse = await GPT35Turbo(listingString);
-  console.log("🎇Done!");
 
   await page
     .locator("#rhs_column")
@@ -54,15 +53,19 @@ async function performPlaywrightMessage(link) {
     await page.getByRole("button", { name: "Login" }).click();
   }
 
+  // if (await page.isVisible("text='Yes, I have read the Security Advice'")) {
   await page
     .getByRole("button", { name: "Yes, I have read the Security Advice" })
     .click();
-
+  // }
   await page
     .getByPlaceholder(
       "Write your message with a personal touch and detailed information and refer to the Ad description. You can mention your availability to visit the flat and additional contact information such as your mobile phone number, where appropriate."
     )
     .click();
+  console.log("🎇Generating ChatGPT reponse...");
+  const gptResponse = await GPT35Turbo(listingString);
+  console.log("🎇Done!");
   await page
     .getByPlaceholder(
       "Write your message with a personal touch and detailed information and refer to the Ad description. You can mention your availability to visit the flat and additional contact information such as your mobile phone number, where appropriate."
@@ -91,6 +94,7 @@ async function loadSavedCredentialsIfExist() {
 }
 
 function getLatestMessageId(entries) {
+  console.log(entries);
   const latestMessage = entries.reduce((acc, obj) => {
     if (obj.id > acc.id) {
       return obj;
@@ -137,6 +141,18 @@ async function parseHistoryResponse(jsonObject) {
   await getMessage(cred, messageId);
 }
 
+async function resub(auth) {
+  const gmail = google.gmail({ version: "v1", auth });
+  const res = await gmail.users.watch({
+    userId: "me",
+    requestBody: {
+      labelIds: ["INBOX"],
+      topicName,
+    },
+  });
+  console.log(res);
+}
+
 async function getMessage(auth, messageId) {
   const gmail = google.gmail({ version: "v1", auth });
   const res = await gmail.users.messages.get({
@@ -157,7 +173,7 @@ async function getHistory(auth, historyId) {
 
 async function tryToSendMessage() {
   let cred = await loadSavedCredentialsIfExist();
-  let historyId = 1;
+  let historyId = 5000;
   await getHistory(cred, historyId);
 }
 
@@ -174,11 +190,18 @@ let GPT35Turbo = async (listingText) => {
   const response = await openai.createChatCompletion({
     model: "gpt-3.5-turbo",
     messages: turboMessage,
-    max_tokens: 1000,
-    temperature: 0.8,
+    max_tokens: 2000,
+    temperature: 0.4,
   });
 
   return response.data.choices[0].message.content;
 };
+
+/*
+(async () => {
+  let cred = await loadSavedCredentialsIfExist();
+  await resub(cred);
+})();
+*/
 
 module.exports = { tryToSendMessage };

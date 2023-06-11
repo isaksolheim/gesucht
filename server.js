@@ -8,6 +8,10 @@ app.post("/webhook", async (req, res) => {
   res.sendStatus(200);
 });
 
+app.get("/", async (req, res) => {
+  res.sendStatus(200);
+});
+
 app.listen(3000, () => {
   console.log("Server is listening on port 3000");
 });
