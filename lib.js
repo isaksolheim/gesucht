@@ -94,6 +94,7 @@ async function loadSavedCredentialsIfExist() {
 }
 
 function getLatestMessageId(entries) {
+  console.log("getLatestMessageId")
   console.log(entries);
   const latestMessage = entries.reduce((acc, obj) => {
     if (obj.id > acc.id) {
@@ -117,6 +118,7 @@ function unicodeBase64Decode(text) {
 }
 
 function logCompleteJsonObject(jsonObject) {
+  console.log("logCompleteJsonObject()");
   const base = jsonObject.payload.parts.filter(
     (part) => part.mimeType === "text/plain"
   )[0].body.data;
@@ -138,6 +140,7 @@ function logCompleteJsonObject(jsonObject) {
 }
 
 async function parseHistoryResponse(jsonObject) {
+  console.log("parseHistoryResponse()");
   let cred = await loadSavedCredentialsIfExist();
   const entries = jsonObject.history.filter((entry) => entry.messagesAdded);
   const messageId = getLatestMessageId(entries);
@@ -157,6 +160,7 @@ async function resub(auth) {
 }
 
 async function getMessage(auth, messageId) {
+  console.log("getMessage()");
   const gmail = google.gmail({ version: "v1", auth });
   const res = await gmail.users.messages.get({
     userId: "me",
@@ -166,6 +170,7 @@ async function getMessage(auth, messageId) {
 }
 
 async function getHistory(auth, historyId) {
+  console.log("getHistory()");
   const gmail = google.gmail({ version: "v1", auth });
   const res = await gmail.users.history.list({
     userId: "me",
@@ -175,8 +180,9 @@ async function getHistory(auth, historyId) {
 }
 
 async function tryToSendMessage() {
+  console.log("tryToSendMessage()");
   let cred = await loadSavedCredentialsIfExist();
-  let historyId = 5000;
+  let historyId = 10200;
   await getHistory(cred, historyId);
 }
 
