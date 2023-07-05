@@ -122,7 +122,7 @@ function unicodeBase64Decode(text) {
   );
 }
 
-async function logCompleteJsonObject(jsonObject) {
+function logCompleteJsonObject(jsonObject) {
   console.log("logCompleteJsonObject()");
   const base = jsonObject.payload.parts.filter(
     (part) => part.mimeType === "text/plain"
@@ -136,7 +136,7 @@ async function logCompleteJsonObject(jsonObject) {
   console.log(links);
 
   if (links && links.length >= 1) {
-    links.forEach((link) => {
+    links.forEach(async (link) => {
       await performPlaywrightMessage(link);
     });
   } else {
