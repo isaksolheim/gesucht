@@ -39,10 +39,15 @@ async function performPlaywrightMessage(link) {
 
   const listingString = JSON.stringify(listingText);
 
-  await page
-    .locator("#rhs_column")
-    .getByRole("link", { name: "Send Message" })
-    .click();
+  if (await page.isVisible("text='Send message'")) {
+    await page
+      .locator("#rhs_column")
+      .getByRole("link", { name: "Send Message" })
+      .click();
+  } else {
+    console.log("No send message button found. Exiting");
+    return;
+  }
 
   if (await page.isVisible("text='Please sign in here.'")) {
     await page.getByRole("link", { name: "Please sign in here." }).click();
@@ -94,7 +99,7 @@ async function loadSavedCredentialsIfExist() {
 }
 
 function getLatestMessageId(entries) {
-  console.log("getLatestMessageId")
+  console.log("getLatestMessageId");
   console.log(entries);
   const latestMessage = entries.reduce((acc, obj) => {
     if (obj.id > acc.id) {
