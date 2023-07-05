@@ -137,7 +137,11 @@ function logCompleteJsonObject(jsonObject) {
 
   if (links && links.length >= 1) {
     links.forEach(async (link) => {
-      await performPlaywrightMessage(link);
+      try {
+        await performPlaywrightMessage(link);
+      } catch (error) {
+        console.log(error);
+      }
     });
   } else {
     console.log("No link found.");
