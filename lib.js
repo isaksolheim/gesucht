@@ -128,9 +128,10 @@ function logCompleteJsonObject(jsonObject) {
 
   console.log(links);
 
-  if (links && links.length >= 2) {
-    const link = match[1];
-    performPlaywrightMessage(link);
+  if (links && links.length >= 1) {
+    links.forEach((link) => {
+      performPlaywrightMessage(link);
+    });
   } else {
     console.log("No link found.");
   }
