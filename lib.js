@@ -123,10 +123,12 @@ function logCompleteJsonObject(jsonObject) {
 
   const decodedText = unicodeBase64Decode(base);
 
-  const regex = /VIEW OFFER <(https[^>]+)>/;
-  const match = decodedText.match(regex);
+  const regex = /https?:\/\/[^\s?]+[?&]campaign=suchauftrag_detail\b/g;
+  const links = decodedText.match(regex);
 
-  if (match && match.length >= 2) {
+  console.log(links);
+
+  if (links && links.length >= 2) {
     const link = match[1];
     performPlaywrightMessage(link);
   } else {
