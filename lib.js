@@ -22,6 +22,8 @@ const configuration = new Configuration({
 
 const openai = new OpenAIApi(configuration);
 
+let mId = 15866;
+
 async function performPlaywrightMessage(link) {
   console.log(`💃 Visiting ${link}`);
   const browser = await chromium.launch({ headless: true });
@@ -39,15 +41,10 @@ async function performPlaywrightMessage(link) {
 
   const listingString = JSON.stringify(listingText);
 
-  if (await page.isVisible("text='Send message'")) {
-    await page
-      .locator("#rhs_column")
-      .getByRole("link", { name: "Send Message" })
-      .click();
-  } else {
-    console.log("No send message button found. Exiting");
-    return;
-  }
+  await page
+    .locator("#rhs_column")
+    .getByRole("link", { name: "Send Message" })
+    .click();
 
   if (await page.isVisible("text='Please sign in here.'")) {
     await page.getByRole("link", { name: "Please sign in here." }).click();
@@ -70,12 +67,13 @@ async function performPlaywrightMessage(link) {
     .click();
   console.log("🎇Generating ChatGPT reponse...");
   const gptResponse = await GPT35Turbo(listingString);
+  const formattedResponse = gptResponse.replace(/"/g, '');
   console.log("🎇Done!");
   await page
     .getByPlaceholder(
       "Write your message with a personal touch and detailed information and refer to the Ad description. You can mention your availability to visit the flat and additional contact information such as your mobile phone number, where appropriate."
     )
-    .fill(gptResponse);
+    .fill(formattedResponse);
   await page.getByRole("button", { name: "󰏢 Attachment" }).click();
   await page.locator("#file_storage_wrapper").getByRole("img").first().click();
   await page.locator("#file_storage_wrapper").getByRole("img").nth(2).click();
@@ -191,13 +189,13 @@ async function getHistory(auth, historyId) {
 async function tryToSendMessage() {
   console.log("tryToSendMessage()");
   let cred = await loadSavedCredentialsIfExist();
-  let historyId = 10200;
+  let historyId = 15866;
   await getHistory(cred, historyId);
 }
 
 let GPT35Turbo = async (listingText) => {
   const prompt = `
-    Add 1-3 sentences to the following text: "${starterText}". The new sentences should explain why I would fit the flatshare, listed with the following text: "${listingText}". Add some emojies as well!;
+    Can you spice up the following text: "${starterText}" The updated text should explain why I would fit in the flatshare with the following listing text: "${listingText}". Add some emojies as well. Mention that my semester is from September to March, so a stay for that perioud would be ideal (but Im always flexible)!
   `;
 
   const turboMessage = [
@@ -208,18 +206,16 @@ let GPT35Turbo = async (listingText) => {
   const response = await openai.createChatCompletion({
     model: "gpt-3.5-turbo",
     messages: turboMessage,
-    max_tokens: 2000,
-    temperature: 0.4,
+    max_tokens: 1000,
+    temperature: 0.2,
   });
 
   return response.data.choices[0].message.content;
 };
 
-/*
 (async () => {
   let cred = await loadSavedCredentialsIfExist();
   await resub(cred);
 })();
-*/
 
 module.exports = { tryToSendMessage };
