@@ -22,8 +22,6 @@ const configuration = new Configuration({
 
 const openai = new OpenAIApi(configuration);
 
-let mId = 15866;
-
 async function performPlaywrightMessage(link) {
   console.log(`💃 Visiting ${link}`);
   const browser = await chromium.launch({ headless: true });
@@ -189,7 +187,7 @@ async function getHistory(auth, historyId) {
 async function tryToSendMessage() {
   console.log("tryToSendMessage()");
   let cred = await loadSavedCredentialsIfExist();
-  let historyId = 15866;
+  let historyId = 16645;
   await getHistory(cred, historyId);
 }
 
