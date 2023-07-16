@@ -187,14 +187,16 @@ async function getHistory(auth, historyId) {
 async function tryToSendMessage() {
   console.log("tryToSendMessage()");
   let cred = await loadSavedCredentialsIfExist();
-  let historyId = 16645;
+  let historyId = 17025;
   await getHistory(cred, historyId);
 }
 
 let GPT35Turbo = async (listingText) => {
   const prompt = `
-    Can you spice up the following text: "${starterText}" The updated text should explain why I would fit in the flatshare with the following listing text: "${listingText}". Add some emojies as well. Mention that my semester is from September to March, so a stay for that perioud would be ideal (but Im always flexible)!
+    Can you spice up the following text: "${starterText}" The updated text should explain why I would fit in the flatshare with the following listing text: "${listingText}". Add some emojies as well. Mention that my semester is from September to March, so a stay for that perioud would be ideal (but Im always flexible)! And if the listing is written in German, the answer should be in German as well. If that is the case, make a joke saying 'ich verstehe nur bahnhof'
   `;
+
+  console.log(listingText);
 
   const turboMessage = [
     { role: "system", content: `I am applying to a flatshare listing.` },
