@@ -72,11 +72,13 @@ async function performPlaywrightMessage(link) {
       "Write your message with a personal touch and detailed information and refer to the Ad description. You can mention your availability to visit the flat and additional contact information such as your mobile phone number, where appropriate."
     )
     .fill(formattedResponse);
+  /*
   await page.getByRole("button", { name: "󰏢 Attachment" }).click();
   await page.locator("#file_storage_wrapper").getByRole("img").first().click();
   await page.locator("#file_storage_wrapper").getByRole("img").nth(2).click();
   await page.locator("#file_storage_wrapper").getByRole("img").nth(3).click();
   await page.getByRole("button", { name: "Done" }).click();
+  */
   await page.getByRole("button", { name: "Send message" }).click();
 
   await browser.close();
