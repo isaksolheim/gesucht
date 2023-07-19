@@ -193,7 +193,7 @@ async function tryToSendMessage() {
 
 let GPT35Turbo = async (listingText) => {
   const prompt = `
-    Can you spice up the following text: "${starterText}" The updated text should explain why I would fit in the flatshare with the following listing text: "${listingText}". Add some emojies as well. Mention that my semester is from September to March, so a stay for that perioud would be ideal (but Im always flexible)! And if the listing is written in German, the answer should be in German as well. If that is the case, make a joke saying 'ich verstehe nur bahnhof'
+    Can you spice up the following text: "${starterText}" The updated text should explain why I would fit in the flatshare with the following listing text: "${listingText}". Add some emojies as well. Mention that my semester is from September to March, so a stay for that perioud would be ideal (but Im always flexible)! And if the listing is written in German, the answer should be in German as well. And if the listing says I need to say a specific word, start the whole text with that word!
   `;
 
   console.log(listingText);
