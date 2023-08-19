@@ -9,7 +9,6 @@ const starterText = require("./prompt");
 require("dotenv").config();
 
 const TOKEN_PATH = path.join(process.cwd(), "token.json");
-const listingId = process.env.LISTING_ID ? process.env.LISTING_ID : "0";
 const email = process.env.EMAIL ? process.env.EMAIL : "example@mail.com";
 const password = process.env.PASSWORD ? process.env.PASSWORD : "password123";
 const topicName = process.env.TOPIC_NAME
