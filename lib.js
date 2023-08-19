@@ -53,32 +53,25 @@ async function performPlaywrightMessage(link) {
     await page.getByRole("button", { name: "Login" }).click();
   }
 
-  // if (await page.isVisible("text='Yes, I have read the Security Advice'")) {
   await page
     .getByRole("button", { name: "Yes, I have read the Security Advice" })
     .click();
-  // }
   await page
     .getByPlaceholder(
       "Write your message with a personal touch and detailed information and refer to the Ad description. You can mention your availability to visit the flat and additional contact information such as your mobile phone number, where appropriate."
     )
     .click();
+
   console.log("🎇Generating ChatGPT reponse...");
   const gptResponse = await GPT35Turbo(listingString);
-  const formattedResponse = gptResponse.replace(/"/g, '');
+  const formattedResponse = gptResponse.replace(/"/g, "");
   console.log("🎇Done!");
   await page
     .getByPlaceholder(
       "Write your message with a personal touch and detailed information and refer to the Ad description. You can mention your availability to visit the flat and additional contact information such as your mobile phone number, where appropriate."
     )
     .fill(formattedResponse);
-  /*
-  await page.getByRole("button", { name: "󰏢 Attachment" }).click();
-  await page.locator("#file_storage_wrapper").getByRole("img").first().click();
-  await page.locator("#file_storage_wrapper").getByRole("img").nth(2).click();
-  await page.locator("#file_storage_wrapper").getByRole("img").nth(3).click();
-  await page.getByRole("button", { name: "Done" }).click();
-  */
+
   await page.getByRole("button", { name: "Send message" }).click();
 
   await browser.close();
@@ -189,7 +182,7 @@ async function getHistory(auth, historyId) {
 async function tryToSendMessage() {
   console.log("tryToSendMessage()");
   let cred = await loadSavedCredentialsIfExist();
-  let historyId = 17025;
+  let historyId = 19977;
   await getHistory(cred, historyId);
 }
 
