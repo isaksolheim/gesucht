@@ -8,6 +8,7 @@
 - **Link Detection**: Efficiently parses incoming emails to identify wg-gesucht.de links.
 - **Automated Web Interaction**: Utilizes Playwright to automate tasks like sign-ins and messaging on wg-gesucht.de.
 - **Personalized Messaging**: Generates unique messages using ChatGPT 3.5 Turbo
+- **Docker Support**: The bot can be dockerized for enhanced deployment and scalability (still under development).
 
 ## 📦 Dependencies
 
@@ -27,27 +28,21 @@
 - `pnpm` for package management.
 - A wg-gesucht.de account with email alerts configured.
 - Gmail account receiving email alerts from wg-gesucht.de.
-- Google Cloud Pub/Sub service set up.
+- Google Cloud Pub/Sub service set up. Refer to this [guide](https://livefiredev.com/step-by-step-gmail-api-webhook-to-monitor-emails-node-js/) for a step-by-step walkthrough.
 
 ### Setup
 
-1. **Clone the Repository**:
-    ```bash
-    git clone https://github.com/yourusername/gesucht.git
-    ```
+1. **Obtain Google Cloud Credentials**:
+   Navigate to the Google Cloud credentials page and retrieve your `credentials.json` file. Place this file in the root of the project.
 
-2. **Navigate to the Directory**:
-    ```bash
-    cd gesucht
-    ```
-
-3. **Install Dependencies**:
+2. **Install Dependencies**:
     ```bash
     pnpm install
     ```
 
-4. **Set Up Environment Variables**:
-   Create a `.env` file in the root of the project with the following structure:
+3. **Configure Environment Variables**:
+   Set up a `.env` file in the root of the project with the following structure:
+
 
 ```
 EMAIL=your_wg_email
@@ -56,10 +51,10 @@ API_KEY=your_openai_api_key
 TOPIC_NAME=your_google_cloud_pub_sub_topic_name
 ```
 
-5. **Authenticate with Google Cloud**:
+4. **Authenticate with Google Cloud**:
 Before running the bot, execute `node auth.js` to generate a token for Google Cloud. You'll need to repeat this step approximately every 7 days.
 
-6. **Expose Your Local Server**:
+5. **Expose Your Local Server**:
 Once the bot is running, you'll need to provide a push endpoint to the Pub/Sub service in Google Cloud. Tools like `ngrok` can be used to expose the bot running locally.
 
 ### 🏃 Running the Bot
