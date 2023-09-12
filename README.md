@@ -2,6 +2,10 @@
 
 `gesucht` is a bot that automatically sends personalized, context-aware messages to new listings posted on wg-gesucht.de using ChatGPT.
 
+## Thoughtful Use
+
+This project was born from my curiosity, after I saw an opportunity to automate the repetitive task of messaging housing listings. I urge its use for personal, non-commercial purposes only. While automation _might_ make things a tad bit easier, the underlying housing concerns persist.
+
 ## 🌟 Features
 
 - **Email Monitoring**: Uses a webhook from Google Cloud Pub/Sub to monitor a Gmail inbox for alerts from wg-gesucht.de
