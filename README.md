@@ -52,19 +52,6 @@ TOPIC_NAME=your_google_cloud_pub_sub_topic_name
 STARTER_TEXT=Hello! I'm Nimrodel, an elf currently living in Prifddinas. Fishing by the moonlit ponds is my favorite pastime. I cherish the company of squirrels and often share my catch with them.
 ```
 
-4. **Configure `prompt.js` file**
-
-In this file, use your imagination and write some things about yourself :)
-
-```
-const starterText = `
-Hello! I'm Elvin, an elf residing in the Whispering Woods. Fishing by the moonlit ponds is my favorite pastime. I cherish the company of squirrels and often share my catch with them.
-`;
-
-module.exports = { starterText };
-
-```
-
 4. **Authenticate with Google Cloud**:
 Before running the bot, execute `node auth.js` to generate a token for Google Cloud. You'll need to repeat this step approximately every 7 days.
 
