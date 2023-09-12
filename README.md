@@ -71,8 +71,5 @@ Once the bot is running, you'll need to provide a push endpoint to the Pub/Sub s
 
 ## Author
 
-👤 **Isak Solheim**
-
-* Website: [isak.me](https://isak.me)
-* Github: [@isaksolheim](https://github.com/isaksolheim)
+👤 [@isaksolheim](https://github.com/isaksolheim)
 
