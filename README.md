@@ -12,13 +12,13 @@
 
 ## 📦 Dependencies
 
-- **@google-cloud/local-auth**: For authentication purposes.
-- **axios**: Handles HTTP requests.
-- **dotenv**: Used to manage environment variables.
-- **express**: Provides web framework capabilities.
-- **googleapis**: Connects with Google Cloud services.
-- **openai**: OpenAI SDK to generate messages.
-- **playwright**: Enables web automation tasks.
+- **@google-cloud/local-auth**: For authentication purposes
+- **axios**: Handles HTTP requests
+- **dotenv**: Used to manage environment variables
+- **express**: Provides web framework capabilities
+- **googleapis**: Connects with Google Cloud services
+- **openai**: OpenAI SDK to generate messages
+- **playwright**: Enables web automation tasks
 
 ## 🚀 Getting Started
 
