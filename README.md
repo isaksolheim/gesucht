@@ -55,16 +55,15 @@ STARTER_TEXT=Hello! I'm Nimrodel, an elf currently living in Prifddinas. Fishing
 4. **Authenticate with Google Cloud**:
 Before running the bot, execute `node auth.js` to generate a token for Google Cloud. You'll need to repeat this step approximately every 7 days.
 
-5. **Expose Your Local Server**:
-Once the bot is running, you'll need to provide a push endpoint to the Pub/Sub service in Google Cloud. Tools like `ngrok` can be used to expose the bot running locally.
-
-### 🏃 Running the Bot
+### ⚡ Running the Bot
 
 Start the bot with:
 
 ```bash
-pnpm start
+node index.js
 ```
+Once the bot is running, you'll need to provide a push endpoint to the Pub/Sub service in Google Cloud. Tools like ngrok can be used to expose the bot running locally.
+
 
 ## Author
 
