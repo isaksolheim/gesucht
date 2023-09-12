@@ -47,7 +47,6 @@ This project was born from my curiosity, after I saw an opportunity to automate 
 3. **Configure Environment Variables**:
    Set up a `.env` file in the root of the project with the following structure:
 
-
 ```
 EMAIL=your_wg_email
 PASSWORD=your_wg_password
@@ -56,8 +55,10 @@ TOPIC_NAME=your_google_cloud_pub_sub_topic_name
 STARTER_TEXT=Hello! I'm Nimrodel, an elf currently living in Prifddinas. Fishing by the moonlit ponds is my favorite pastime. I cherish the company of squirrels and often share my catch with them.
 ```
 
+`STARTER_TEXT` is a customizable text template that the bot will use as a base when generating personalized messages for listings using the OpenAI API.
+
 4. **Authenticate with Google Cloud**:
-Before running the bot, execute `node auth.js` to generate a token for Google Cloud. You'll need to repeat this step approximately every 7 days.
+Before running the bot, execute `node auth.js` to generate a `token.json` file for Google Cloud authentication. You'll need to repeat this step approximately every 7 days, by deleting the existing `token.json` file and running `node auth.js` again.
 
 ### Running the Bot
 
@@ -66,7 +67,7 @@ Start the bot with:
 ```bash
 node index.js
 ```
-Once the bot is running, you'll need to provide a push endpoint to the Pub/Sub service in Google Cloud. Tools like ngrok can be used to expose the bot running locally.
+Once the bot is running, you'll need to provide a push endpoint to the Pub/Sub service in Google Cloud. I use [ngrok](https://ngrok.com/docs) to expose the bot running locally.
 
 
 ## Author
