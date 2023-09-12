@@ -89,8 +89,6 @@ async function loadSavedCredentialsIfExist() {
 }
 
 function getLatestMessageId(entries) {
-  console.log("getLatestMessageId");
-  console.log(entries);
   const latestMessage = entries.reduce((acc, obj) => {
     if (obj.id > acc.id) {
       return obj;
@@ -113,7 +111,6 @@ function unicodeBase64Decode(text) {
 }
 
 function logCompleteJsonObject(jsonObject) {
-  console.log("logCompleteJsonObject()");
   const base = jsonObject.payload.parts.filter(
     (part) => part.mimeType === "text/plain"
   )[0].body.data;
@@ -122,8 +119,6 @@ function logCompleteJsonObject(jsonObject) {
 
   const regex = /https?:\/\/[^\s?]+[?&]campaign=suchauftrag_detail\b/g;
   const links = decodedText.match(regex);
-
-  console.log(links);
 
   if (links && links.length >= 1) {
     links.forEach(async (link) => {
@@ -139,7 +134,6 @@ function logCompleteJsonObject(jsonObject) {
 }
 
 async function parseHistoryResponse(jsonObject) {
-  console.log("parseHistoryResponse()");
   let cred = await loadSavedCredentialsIfExist();
   const entries = jsonObject.history.filter((entry) => entry.messagesAdded);
   const messageId = getLatestMessageId(entries);
@@ -159,7 +153,6 @@ async function resub(auth) {
 }
 
 async function getMessage(auth, messageId) {
-  console.log("getMessage()");
   const gmail = google.gmail({ version: "v1", auth });
   const res = await gmail.users.messages.get({
     userId: "me",
@@ -169,7 +162,6 @@ async function getMessage(auth, messageId) {
 }
 
 async function getHistory(auth, historyId) {
-  console.log("getHistory()");
   const gmail = google.gmail({ version: "v1", auth });
   const res = await gmail.users.history.list({
     userId: "me",
@@ -179,7 +171,6 @@ async function getHistory(auth, historyId) {
 }
 
 async function tryToSendMessage() {
-  console.log("tryToSendMessage()");
   let cred = await loadSavedCredentialsIfExist();
   let historyId = 19977;
   await getHistory(cred, historyId);
@@ -189,8 +180,6 @@ let generateGptResponse = async (listingText) => {
   const prompt = `
     Can you spice up the following text: "${starterText}" The updated text should explain why I would fit in the flatshare with the following listing text: "${listingText}". Add some emojies as well. Mention that my semester is from September to March, so a stay for that perioud would be ideal (but Im always flexible)! And if the listing is written in German, the answer should be in German as well. And if the listing says I need to say a specific word, start the whole text with that word!
   `;
-
-  console.log(listingText);
 
   const turboMessage = [
     { role: "system", content: `I am applying to a flatshare listing.` },
