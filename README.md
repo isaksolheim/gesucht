@@ -2,11 +2,11 @@
 
 `gesucht` is a bot that automatically sends personalized, context-aware messages to new listings posted on wg-gesucht.de using ChatGPT.
 
-## Thoughtful Use
+## A Quick Note
 
 This project was born from my curiosity, after I saw an opportunity to automate the repetitive task of messaging housing listings. I urge its use for personal, non-commercial purposes only. While automation _might_ make things a tad bit easier, the underlying housing concerns persist.
 
-## 🌟 Features
+## Features 
 
 - **Email Monitoring**: Uses a webhook from Google Cloud Pub/Sub to monitor a Gmail inbox for alerts from wg-gesucht.de
 - **Link Detection**: Efficiently parses incoming emails to identify wg-gesucht.de links
@@ -14,7 +14,7 @@ This project was born from my curiosity, after I saw an opportunity to automate 
 - **Personalized Messaging**: Generates unique messages using ChatGPT 3.5 Turbo
 - **Docker Support**: The bot can be dockerized easy deployment
 
-## 📦 Dependencies
+## Dependencies
 
 - **@google-cloud/local-auth**: For authentication purposes
 - **axios**: Handles HTTP requests
@@ -24,7 +24,7 @@ This project was born from my curiosity, after I saw an opportunity to automate 
 - **openai**: OpenAI SDK to generate messages
 - **playwright**: Enables web automation tasks
 
-## 🚀 Getting Started
+## Getting Started
 
 ### Prerequisites
 
@@ -59,7 +59,7 @@ STARTER_TEXT=Hello! I'm Nimrodel, an elf currently living in Prifddinas. Fishing
 4. **Authenticate with Google Cloud**:
 Before running the bot, execute `node auth.js` to generate a token for Google Cloud. You'll need to repeat this step approximately every 7 days.
 
-### ⚡ Running the Bot
+### Running the Bot
 
 Start the bot with:
 
