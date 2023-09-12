@@ -4,11 +4,11 @@ const process = require("process");
 const { google } = require("googleapis");
 const { chromium } = require("playwright");
 const { Configuration, OpenAIApi } = require("openai");
-const starterText = require("./prompt");
 
 require("dotenv").config();
 
 const TOKEN_PATH = path.join(process.cwd(), "token.json");
+const starterText = process.env.STARTER_TEXT;
 const email = process.env.EMAIL ? process.env.EMAIL : "example@mail.com";
 const password = process.env.PASSWORD ? process.env.PASSWORD : "password123";
 const topicName = process.env.TOPIC_NAME
