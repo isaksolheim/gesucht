@@ -4,11 +4,11 @@
 
 ## 🌟 Features
 
-- **Email Monitoring**: Uses a webhook from Google Cloud Pub/Sub to monitor a Gmail inbox for alerts from wg-gesucht.de.
-- **Link Detection**: Efficiently parses incoming emails to identify wg-gesucht.de links.
-- **Automated Web Interaction**: Utilizes Playwright to automate tasks like sign-ins and messaging on wg-gesucht.de.
+- **Email Monitoring**: Uses a webhook from Google Cloud Pub/Sub to monitor a Gmail inbox for alerts from wg-gesucht.de
+- **Link Detection**: Efficiently parses incoming emails to identify wg-gesucht.de links
+- **Automated Web Interaction**: Utilizes Playwright to automate tasks like sign-ins and messaging on wg-gesucht.de
 - **Personalized Messaging**: Generates unique messages using ChatGPT 3.5 Turbo
-- **Docker Support**: The bot can be dockerized for enhanced deployment and scalability (still under development).
+- **Docker Support**: The bot can be dockerized easy deployment
 
 ## 📦 Dependencies
 
@@ -25,10 +25,10 @@
 ### Prerequisites
 
 - Node.js
-- `pnpm` for package management.
-- A wg-gesucht.de account with email alerts configured.
-- Gmail account receiving email alerts from wg-gesucht.de.
-- Google Cloud Pub/Sub service set up. Refer to this [guide](https://livefiredev.com/step-by-step-gmail-api-webhook-to-monitor-emails-node-js/) for a step-by-step walkthrough.
+- `pnpm` for package management
+- A wg-gesucht.de account with email alerts configured
+- Gmail account receiving email alerts from wg-gesucht.de
+- Google Cloud Pub/Sub service set up (refer to this [guide](https://livefiredev.com/step-by-step-gmail-api-webhook-to-monitor-emails-node-js/) for a step-by-step walkthrough)
 
 ### Setup
 
