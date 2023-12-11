@@ -1,6 +1,6 @@
 # 🤖 Gesucht Bot
 
-`gesucht` is a bot that automatically sends personalized, context-aware messages to new listings posted on wg-gesucht.de using ChatGPT.
+`gesucht` is a bot that automatically sends personalized, context-aware messages to new listings posted on wg-gesucht.de using GPT-3.5.
 
 ## A Quick Note
 
@@ -11,7 +11,7 @@ This project was born from my curiosity, after I saw an opportunity to automate 
 - **Email Monitoring**: Uses a webhook from Google Cloud Pub/Sub to monitor a Gmail inbox for alerts from wg-gesucht.de
 - **Link Detection**: Efficiently parses incoming emails to identify wg-gesucht.de links
 - **Automated Web Interaction**: Utilizes Playwright to automate tasks like sign-ins and messaging on wg-gesucht.de
-- **Personalized Messaging**: Generates unique messages using ChatGPT 3.5 Turbo
+- **Personalized Messaging**: Generates unique messages using GPT 3.5 Turbo
 - **Docker Support**: The bot can be dockerized easy deployment
 
 ## Dependencies
